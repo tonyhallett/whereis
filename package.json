@@ -1,0 +1,27 @@
+{
+  "name": "whereis",
+  "version": "1.0.0",
+  "description": "alexa skills test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tonyhallett/whereis.git"
+  },
+  "keywords": [
+    "alexa",
+    "skills",
+    "custom"
+  ],
+  "author": "tony hallett",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tonyhallett/whereis/issues"
+  },
+  "homepage": "https://github.com/tonyhallett/whereis#readme",
+  "dependencies": {
+    "alexa-sdk": "^1.0.9"
+  }
+}
