@@ -2,6 +2,7 @@ var Alexa = require('alexa-sdk');
 
 exports.handler = function (event, context, callback) {
     var alexa = Alexa.handler(event, context);
+    alexa.appId = 'amzn1.ask.skill.f23fcb49-2cb8-4f7e-a8ba-cd7e2fe67a36';
     alexa.registerHandlers(whereIsHandlers, whereIsJaneHandlers);
     alexa.execute();
 
@@ -31,6 +32,8 @@ var whereIsHandlers = {
                 break;
             case "Johnny":
                 var johnnySsml = "";
+                this.response.audioPlayerPlay("REPLACE_ALL", "https://1drv.ms/u/s!AtB1aD1W_wjBgo0NwxSon6adHub8HQ", "1", null, 0);
+                this.emit(':responseReady');
                 break;
             case "Dan":
                 //this.emit not sufficient when doing full mp3
@@ -81,10 +84,14 @@ var midgetHandlers = Alexa.CreateStateHandler(states.MIDGET,  {
         var cardTitle = 'Love midget !';
         var cardContent, imageObj;
         var midgetSpeech;
-
+        var imageObj;
         switch (midgetActivity) {
             case 'Acting':
                 midgetSpeech = 'Midget cannot be found anywhere but you have been sent a cute postcard';
+                cardContent = "Hello !";
+                imageObj = {
+                    smallImageUrl: 'https://i.imgur.com/PIGjG0V.jpg'
+                }
                 break;
             case 'Misbehaving':
                 midgetSpeech = 'Midget is in vegas, you have been sent a postcard !';
