@@ -17,7 +17,9 @@ var whereIsHandlers = {
 
     'WHEREIS': function () {
         var intentObj = this.event.request.intent;
-        var whereIsPerson = intentObj.slots[0];
+        console.log('in where is');
+        var whereIsPerson = intentObj.slots.WhereIsPeople.value;
+        console.log('where is slot' + whereIsPerson);
         switch (whereIsPerson) {
             case "Jane":
                 this.handler.state = states.Jane;
