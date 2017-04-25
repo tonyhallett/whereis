@@ -39,7 +39,10 @@ var whereIsHandlers = {
                 this.emit(':responseReady');
                 break;
             case "Dan":
-                //this.emit not sufficient when doing full mp3
+                //<break time="3s"/>
+                var danSpeech = 'Here is Dan.<audio src= "https://1drv.ms/u/s!AtB1aD1W_wjBg4xPvprpsKGBVpONqg" />';
+                //will replace the nulls with cheesy alan partridge
+                this.emit(':tellWithCard', danSpeech, null, null, null);
                 break;
             case "Midget":
                 this.handler.state = states.Midget;
