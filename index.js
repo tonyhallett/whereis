@@ -1,16 +1,17 @@
 var Alexa = require('alexa-sdk');
 
 exports.handler = function (event, context, callback) {
+    console.log('in handler');
     var alexa = Alexa.handler(event, context);
     alexa.appId = 'amzn1.ask.skill.f23fcb49-2cb8-4f7e-a8ba-cd7e2fe67a36';
-    alexa.registerHandlers(whereIsHandlers, whereIsJaneHandlers);
+    alexa.registerHandlers(whereIsHandlers, whereIsJaneHandlers, midgetHandlers);
     alexa.execute();
 
 };
 var states = {
     Jane: "_Jane",
-    Midget:"_Midget"
-}
+    Midget: "_Midget"
+};
 //need to add handlers for unhandled
 
 var whereIsHandlers = {
@@ -56,44 +57,44 @@ var whereIsHandlers = {
 var whereIsJaneHandlers = Alexa.CreateStateHandler(states.Jane, {
     'JANEWITH': function () {
         var intentObj = this.event.request.intent;
-        var janeWithPerson = intentObj.slots[0];
+        var janeWithPerson = intentObj.slots.JaneWithPeople.value;
+        var cardContent, cardTitle, imageObj;
         switch (janeWithPerson) {
             case "Me":
                 this.emit(':tell', "Why are you asking me then nobby.<break time='2s'/> Wanker !");
                 break;
             case "Nel":
                 //possible ssml for address
-                var cardTitle = 'Jane with Mum';
-                var cardContent = '';
-                var imageObj = '';
+                cardTitle = 'Jane with Mum';
+                cardContent = 'Content';
                 this.emit(':tellWithCard', 'She will be at 3 Hatfield Road', cardTitle, cardContent, imageObj);
+                break;
             case "Clair":
-                var cardTitle = 'Jane with Clair';
-                var cardContent = '';
-                var imageObj = '';
+                cardTitle = 'Jane with Clair';
+                cardContent = 'Content';
                 //assume that state gets cleared automatically with tell
                 this.emit(':tellWithCard', 'She will be at 5 Hatfield Road', cardTitle, cardContent, imageObj);
+                break;
             //default
         }
     }
 });
 
-var midgetHandlers = Alexa.CreateStateHandler(states.MIDGET,  {
+var midgetHandlers = Alexa.CreateStateHandler(states.MIDGET, {
     'MIDGETACTIVITY': function () {
         var intentObj = this.event.request.intent;
-        var midgetActivity = intentObj.slots[0];
+        var midgetActivity = intentObj.slots.MidgetActivities.value;
         //instead of switching could just emit
         var cardTitle = 'Love midget !';
         var cardContent, imageObj;
         var midgetSpeech;
-        var imageObj;
         switch (midgetActivity) {
             case 'Acting':
                 midgetSpeech = 'Midget cannot be found anywhere but you have been sent a cute postcard';
                 cardContent = "Hello !";
                 imageObj = {
                     smallImageUrl: 'https://i.imgur.com/PIGjG0V.jpg'
-                }
+                };
                 break;
             case 'Misbehaving':
                 midgetSpeech = 'Midget is in vegas, you have been sent a postcard !';
@@ -114,4 +115,4 @@ var midgetHandlers = Alexa.CreateStateHandler(states.MIDGET,  {
         this.emit(':tellWithCard', midgetSpeech, cardTitle, cardContent, imageObj);
 
     }
-}
+});
